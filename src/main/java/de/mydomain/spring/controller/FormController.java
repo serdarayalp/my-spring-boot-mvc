@@ -14,30 +14,31 @@ import java.time.format.FormatStyle;
 import java.util.Locale;
 
 @Controller
-public class MyController {
+public class FormController {
 
-    @Value("${my.message}")
+    @Value("${ui.message}")
     private String message;
 
-    @GetMapping("/getMessage")
+    @GetMapping("/messageByModel")
     public String getMessage(Model model) {
         model.addAttribute("message", message);
         return "main";
     }
 
-    @GetMapping("/getMessage2")
+    @GetMapping("/messageByModelAndView")
     public ModelAndView getMessage() {
         var mav = new ModelAndView();
         mav.addObject("message", message);
+
         mav.setViewName("main");
+
         return mav;
     }
 
-    @GetMapping("/getMessageAndTime")
+    @GetMapping("/messageByModelMap")
     public String getMessageAndTime(ModelMap map) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-
         formatter.withLocale(new Locale("de", "DE"));
         formatter.withZone(ZoneId.of("Europe/Berlin"));
 
